@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+group 'com.sunnymix.apigener'
+version '1.0.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    compileOnly('com.sunnymix.apigener:apigener-processor:1.0.0-SNAPSHOT')
+    annotationProcessor('com.sunnymix.apigener:apigener-processor:1.0.0-SNAPSHOT')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+application {
+    mainClass = 'com.sunnymix.apigener.app.App'
+}
