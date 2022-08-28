@@ -14,8 +14,9 @@ public class App {
 
     public static void main(String[] args) {
         Project project = new Project();
-        project.name = "APIGENER";
-        System.out.println("Project.name: " + project.getName());
+        project.setName("APIGENER");
+        String projectInfo = "Project.name: " + project.getName();
+        System.out.println(projectInfo);
     }
 
 }
