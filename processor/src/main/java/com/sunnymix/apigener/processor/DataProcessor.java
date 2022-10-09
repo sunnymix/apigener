@@ -23,7 +23,7 @@ import javax.tools.Diagnostic;
 import java.util.Set;
 
 /**
- * @author Sunny
+ * @author sunnymix
  */
 @SupportedAnnotationTypes("com.sunnymix.apigener.annotation.Data")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
@@ -63,8 +63,8 @@ public class DataProcessor extends AbstractProcessor {
 
                     varDecls.forEach(varDecl -> {
                         messager.printMessage(Diagnostic.Kind.NOTE, "Visit: " + varDecl.getName());
-                        classDecl.defs = classDecl.defs.prepend(_makeSetterMethodDecl(varDecl));
-                        classDecl.defs = classDecl.defs.prepend(_makeGetterMethodDecl(varDecl));
+                        classDecl.defs = classDecl.defs.prepend(makeSetterMethodDecl(varDecl));
+                        classDecl.defs = classDecl.defs.prepend(makeGetterMethodDecl(varDecl));
                     });
                 }
             });
@@ -72,7 +72,7 @@ public class DataProcessor extends AbstractProcessor {
         return true;
     }
 
-    private JCMethodDecl _makeSetterMethodDecl(JCVariableDecl varDecl) {
+    private JCMethodDecl makeSetterMethodDecl(JCVariableDecl varDecl) {
         JCMethodDecl methodDecl;
         Name varName = varDecl.getName();
 
@@ -90,7 +90,7 @@ public class DataProcessor extends AbstractProcessor {
 
         methodDecl = treeMaker.MethodDef(
             treeMaker.Modifiers(Flags.PUBLIC),
-            _makeSetterMethodName(varName),
+            makeSetterMethodName(varName),
             returnType,
             List.nil(),
             List.of(paramVarDecl),
@@ -100,13 +100,13 @@ public class DataProcessor extends AbstractProcessor {
         return methodDecl;
     }
 
-    private Name _makeSetterMethodName(Name varName) {
+    private Name makeSetterMethodName(Name varName) {
         String varNameStr = varName.toString();
         String getterNameStr = "set" + varNameStr.substring(0, 1).toUpperCase() + varNameStr.substring(1);
         return names.fromString(getterNameStr);
     }
 
-    private JCMethodDecl _makeGetterMethodDecl(JCVariableDecl varDecl) {
+    private JCMethodDecl makeGetterMethodDecl(JCVariableDecl varDecl) {
         JCMethodDecl methodDecl;
         Name varName = varDecl.getName();
 
@@ -118,7 +118,7 @@ public class DataProcessor extends AbstractProcessor {
 
         methodDecl = treeMaker.MethodDef(
             treeMaker.Modifiers(Flags.PUBLIC),
-            _makeGetterMethodName(varName),
+            makeGetterMethodName(varName),
             varDecl.vartype,
             List.nil(),
             List.nil(),
@@ -128,7 +128,7 @@ public class DataProcessor extends AbstractProcessor {
         return methodDecl;
     }
 
-    private Name _makeGetterMethodName(Name varName) {
+    private Name makeGetterMethodName(Name varName) {
         String varNameStr = varName.toString();
         String getterNameStr = "get" + varNameStr.substring(0, 1).toUpperCase() + varNameStr.substring(1);
         return names.fromString(getterNameStr);

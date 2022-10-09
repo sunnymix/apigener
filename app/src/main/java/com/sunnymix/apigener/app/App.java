@@ -3,7 +3,7 @@ package com.sunnymix.apigener.app;
 import com.sunnymix.apigener.annotation.Data;
 
 /**
- * @author Sunny
+ * @author sunnymix
  */
 public class App {
 
